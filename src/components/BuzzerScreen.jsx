@@ -1,6 +1,59 @@
 import React, { useEffect, useRef, useState } from 'react';
+import styled from 'styled-components';
 
 const WS_URL = import.meta.env.VITE_BACKEND_URL || 'ws://localhost:8080';
+
+const CenteredContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+`;
+
+const NameInput = styled.input`
+  font-size: 24px;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+`;
+
+const JoinButton = styled.button`
+  font-size: 24px;
+  margin-left: 12px;
+  padding: 12px 24px;
+  border-radius: 8px;
+`;
+
+const ChangeNameButton = styled.button`
+  font-size: 18px;
+  margin-bottom: 16px;
+  background: #eee;
+  color: #333;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 8px 20px;
+  cursor: pointer;
+`;
+
+const BuzzButton = styled.button`
+  background: ${({ disabled }) => (disabled ? '#aaa' : 'red')};
+  color: white;
+  font-size: 48px;
+  border: none;
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+  margin: 32px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.2);
+  cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
+  transition: background 0.2s;
+`;
+
+const PositionText = styled.div`
+  font-size: 32px;
+  margin-top: 16px;
+`;
 
 function BuzzerScreen() {
   const [name, setName] = useState(localStorage.getItem('buzzerName') || '');
@@ -64,20 +117,19 @@ function BuzzerScreen() {
 
   if (!name) {
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
+      <CenteredContainer>
         <h2>Enter your name to join</h2>
         <form onSubmit={handleNameSubmit}>
-          <input
+          <NameInput
             type="text"
             value={inputName}
             onChange={e => setInputName(e.target.value)}
             placeholder="Your name"
-            style={{ fontSize: 24, padding: 12, borderRadius: 8, border: '1px solid #ccc' }}
             autoFocus
           />
-          <button type="submit" style={{ fontSize: 24, marginLeft: 12, padding: '12px 24px', borderRadius: 8 }}>Join</button>
+          <JoinButton type="submit">Join</JoinButton>
         </form>
-      </div>
+      </CenteredContainer>
     );
   }
 
@@ -94,48 +146,18 @@ function BuzzerScreen() {
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
+    <CenteredContainer>
       <h2>Welcome, {name}!</h2>
-      <button
-        onClick={handleChangeName}
-        style={{
-          fontSize: 18,
-          marginBottom: 16,
-          background: '#eee',
-          color: '#333',
-          border: '1px solid #ccc',
-          borderRadius: 8,
-          padding: '8px 20px',
-          cursor: 'pointer',
-        }}
-      >
-        Change Name
-      </button>
-      <button
-        onClick={handleBuzz}
-        disabled={hasBuzzed}
-        style={{
-          background: hasBuzzed ? '#aaa' : 'red',
-          color: 'white',
-          fontSize: 48,
-          border: 'none',
-          borderRadius: '50%',
-          width: 200,
-          height: 200,
-          margin: 32,
-          boxShadow: '0 4px 24px rgba(0,0,0,0.2)',
-          cursor: hasBuzzed ? 'not-allowed' : 'pointer',
-          transition: 'background 0.2s',
-        }}
-      >
+      <ChangeNameButton onClick={handleChangeName}>Change Name</ChangeNameButton>
+      <BuzzButton onClick={handleBuzz} disabled={hasBuzzed}>
         {hasBuzzed ? 'Buzzed!' : 'BUZZ'}
-      </button>
+      </BuzzButton>
       {hasBuzzed && (
-        <div style={{ fontSize: 32, marginTop: 16 }}>
+        <PositionText>
           You are #{position} in the queue
-        </div>
+        </PositionText>
       )}
-    </div>
+    </CenteredContainer>
   );
 }
 
