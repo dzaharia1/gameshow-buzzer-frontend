@@ -56,17 +56,33 @@ const NameInput = styled.input`
   padding: 12px;
   border-radius: 8px;
   border: 1px solid #ccc;
-  margin-bottom: 12px;
+  margin-bottom: 42px;
 `;
 
 const JoinButton = styled.button`
+  position: relative;
   font-size: 24px;
   padding: 12px 24px;
   border-radius: 8px;
   width: 100%;
-  background: #77DFEC;  
-  color:rgb(21, 82, 139);
+  background: none;  
+  color:white;
   border-radius: 8px;
+  overflow: visible;
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateY(-30%) translateX(-50%);
+    width: 110%;
+    height: 200%;
+    background: url('/buttonbackground.png') no-repeat center center;
+    background-size: 80%;
+    z-index: -1;
+    overflow: visible;
+  }
 `;
 
 const ChangeNameButton = styled.button`

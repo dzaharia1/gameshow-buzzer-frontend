@@ -14,7 +14,11 @@ const Container = styled.div`
   align-items: center;
 
   h2 {
+    width: 80%;
+    font-size: 24px;
+    text-shadow: 0 0 12px rgba(0, 42, 69, 0.5);
     margin-bottom: 12px;
+    text-align: center;
   }
 `;
 
@@ -85,8 +89,10 @@ const HardResetButton = styled.button`
 `;
 
 const ResetButton = styled.button`
+  position: absolute;
+  bottom: 6dvh;
   margin-top: 24px;
-  background: #ff6f00;
+  background: none;
   color: white;
   font-size: 28px;
   border: none;
@@ -95,6 +101,21 @@ const ResetButton = styled.button`
   cursor: pointer;
   width: 100%;
   font-weight: 700;
+  overflow: visible;
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateY(-27.5%) translateX(-50%);
+    width: 110%;
+    height: 200%;
+    background: url('/buttonbackground.png') no-repeat center center;
+    background-size: 80%;
+    z-index: -1;
+    overflow: visible;
+  }
 `;
 
 function HostScreen() {
