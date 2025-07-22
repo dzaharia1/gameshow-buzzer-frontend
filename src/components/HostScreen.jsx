@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-const WS_URL = 'ws://localhost:8080';
+const WS_URL = import.meta.env.VITE_BACKEND_URL || 'ws://localhost:8080';
 
 function HostScreen() {
   const [players, setPlayers] = useState([]);
