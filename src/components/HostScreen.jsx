@@ -10,7 +10,8 @@ function HostScreen() {
   useEffect(() => {
     ws.current = new window.WebSocket(WS_URL);
     ws.current.onopen = () => {
-      // No join needed for host
+      // Request current state from backend
+      ws.current.send(JSON.stringify({ type: 'getState' }));
     };
     ws.current.onmessage = (event) => {
       const data = JSON.parse(event.data);

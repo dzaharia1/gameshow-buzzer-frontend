@@ -29,9 +29,25 @@ function BuzzerScreen() {
   const handleNameSubmit = (e) => {
     e.preventDefault();
     if (inputName.trim()) {
+      if (name && name !== inputName.trim() && ws.current) {
+        ws.current.send(JSON.stringify({ type: 'changeName', oldName: name, newName: inputName.trim() }));
+      }
       setName(inputName.trim());
       localStorage.setItem('buzzerName', inputName.trim());
-      ws.current.send(JSON.stringify({ type: 'join', name: inputName.trim() }));
+
+      // Update the site title to be {title}-{inputName}
+      const baseTitle = document.title.split('-')[0].trim();
+      document.title = `${baseTitle}-${inputName.trim()}`;
+
+      // Only send if socket is open, otherwise wait for onopen
+      if (ws.current && ws.current.readyState === WebSocket.OPEN) {
+        ws.current.send(JSON.stringify({ type: 'join', name: inputName.trim() }));
+      } else if (ws.current) {
+        ws.current.addEventListener('open', function handleOpen() {
+          ws.current.send(JSON.stringify({ type: 'join', name: inputName.trim() }));
+          ws.current.removeEventListener('open', handleOpen);
+        });
+      }
     }
   };
 
@@ -66,6 +82,9 @@ function BuzzerScreen() {
   }
 
   const handleChangeName = () => {
+    if (ws.current && name) {
+      ws.current.send(JSON.stringify({ type: 'changeName', oldName: name, newName: '' }));
+    }
     setName('');
     setInputName('');
     localStorage.removeItem('buzzerName');
