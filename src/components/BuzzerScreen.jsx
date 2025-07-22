@@ -20,7 +20,7 @@ function BuzzerScreen() {
       const data = JSON.parse(event.data);
       if (data.type === 'buzzOrder') {
         setBuzzOrder(data.buzzOrder);
-        setHasBuzzed(data.buzzOrder.includes(name));
+        setHasBuzzed(data.buzzOrder.some(entry => entry.name === name));
       }
     };
     return () => ws.current && ws.current.close();
@@ -59,7 +59,7 @@ function BuzzerScreen() {
 
   let position = null;
   if (hasBuzzed) {
-    position = buzzOrder.indexOf(name) + 1;
+    position = buzzOrder.findIndex(entry => entry.name === name) + 1;
   }
 
   if (!name) {

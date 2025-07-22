@@ -33,8 +33,11 @@ function HostScreen() {
   };
 
   // Order players: buzzed first (by buzzOrder), then the rest
-  const buzzedPlayers = buzzOrder.map(name => players.find(p => p.name === name)).filter(Boolean);
-  const notBuzzedPlayers = players.filter(p => !buzzOrder.includes(p.name));
+  const buzzedPlayers = buzzOrder.map((entry) => {
+    const player = players.find(p => p.name === entry.name);
+    return player ? { ...player, buzzTime: entry.time } : null;
+  }).filter(Boolean);
+  const notBuzzedPlayers = players.filter(p => !buzzOrder.some(entry => entry.name === p.name));
   const orderedPlayers = [...buzzedPlayers, ...notBuzzedPlayers];
 
   return (
@@ -49,24 +52,33 @@ function HostScreen() {
               <li
                 key={player.name}
                 style={{
-                  background: buzzOrder.includes(player.name) ? '#ffe066' : '#eee',
-                  border: buzzOrder[0] === player.name ? '3px solid #ff6f00' : '1px solid #ccc',
+                  background: buzzedPlayers.some(p => p.name === player.name) ? '#ffe066' : '#eee',
+                  border: buzzedPlayers[0] && buzzedPlayers[0].name === player.name ? '3px solid #ff6f00' : '1px solid #ccc',
                   borderRadius: 12,
                   marginBottom: 12,
                   padding: '18px 24px',
                   fontSize: 24,
-                  fontWeight: buzzOrder.includes(player.name) ? 'bold' : 'normal',
-                  boxShadow: buzzOrder.includes(player.name) ? '0 2px 12px rgba(255,223,0,0.15)' : 'none',
+                  fontWeight: buzzedPlayers.some(p => p.name === player.name) ? 'bold' : 'normal',
+                  boxShadow: buzzedPlayers.some(p => p.name === player.name) ? '0 2px 12px rgba(255,223,0,0.15)' : 'none',
                   transition: 'all 0.2s',
                   display: 'flex',
                   alignItems: 'center',
                 }}
               >
                 <span style={{ flex: 1 }}>{player.name}</span>
-                {buzzOrder.includes(player.name) && (
-                  <span style={{ marginLeft: 16, color: '#ff6f00', fontSize: 18 }}>
-                    #{buzzOrder.indexOf(player.name) + 1}
-                  </span>
+                {buzzedPlayers.some(p => p.name === player.name) && (
+                  <>
+                    <span style={{ marginLeft: 16, color: '#ff6f00', fontSize: 18 }}>
+                      #{buzzedPlayers.findIndex(p => p.name === player.name) + 1}
+                    </span>
+                    <span style={{ marginLeft: 16, color: '#888', fontSize: 16 }}>
+                      {(() => {
+                        const i = buzzedPlayers.findIndex(p => p.name === player.name);
+                        if (i === 0) return '0 ms';
+                        return `(+ ${player.buzzTime - buzzedPlayers[i - 1].buzzTime} ms)`;
+                      })()}
+                    </span>
+                  </>
                 )}
               </li>
             ))}
