@@ -5,17 +5,23 @@ const WS_URL = import.meta.env.VITE_BACKEND_URL || 'ws://localhost:8080';
 
 const Container = styled.div`
   width: 100vw;
+  height: 100dvh;
   margin: 0 auto;
-  padding: 24px;
+  padding: 12px 24px;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  h2 {
+    margin-bottom: 12px;
+  }
 `;
 
 const PlayerListWrapper = styled.div`
   width: 100%;
-  margin-top: 32px;
+  height: 100%;
+  overflow-y: scroll;
 `;
 
 const NoPlayers = styled.div`
@@ -61,7 +67,7 @@ const BuzzDiff = styled.span`
 `;
 
 const ResetButton = styled.button`
-  margin-top: 40px;
+  margin-top: 24px;
   background: #ff6f00;
   color: white;
   font-size: 28px;
@@ -70,6 +76,8 @@ const ResetButton = styled.button`
   padding: 18px 48px;
   box-shadow: 0 2px 12px rgba(255,111,0,0.15);
   cursor: pointer;
+  width: 100%;
+  font-weight: 700;
 `;
 
 function HostScreen() {
@@ -112,7 +120,7 @@ function HostScreen() {
 
   return (
     <Container>
-      <h2>Host Screen</h2>
+      <h2>Go for it, Aaron!</h2>
       <PlayerListWrapper>
         {orderedPlayers.length === 0 ? (
           <NoPlayers>No players yet</NoPlayers>

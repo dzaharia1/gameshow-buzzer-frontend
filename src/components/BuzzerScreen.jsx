@@ -7,10 +7,41 @@ const CenteredContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-around;
   height: 100vh;
   width: 100vw;
-  padding: 10vh 0;
+  padding: 5vh 0 15vh 0;
+  gap: 5%;
+
+  h2 {
+    width: 80%;
+    font-size: 24px;
+    text-shadow: 0 0 12px rgba(255, 255, 255, 0.5);
+    margin-bottom: 12px;
+    text-align: center;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+`;
+
+const Header = styled.img`
+  width: 100%;
+  padding: 0 12px;
+  object-fit: contain;
+  margin-bottom: 12px;
+`;
+
+const ContentContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  flex: 1;
+  width: 100%;
+  height: 100%;
 `;
 
 const NameContainer = styled.div`
@@ -24,12 +55,16 @@ const NameInput = styled.input`
   padding: 12px;
   border-radius: 8px;
   border: 1px solid #ccc;
+  margin-bottom: 12px;
 `;
 
 const JoinButton = styled.button`
   font-size: 24px;
-  margin-left: 12px;
   padding: 12px 24px;
+  border-radius: 8px;
+  width: 100%;
+  background: #77DFEC;  
+  color:rgb(21, 82, 139);
   border-radius: 8px;
 `;
 
@@ -49,16 +84,22 @@ const BuzzButton = styled.button`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: ${({ disabled }) => (disabled ? '#aaa' : 'red')};
-  color: white;
+
+  background: ${({ disabled }) => (disabled ? 'rgb(21, 82, 139)' : '#77DFEC')};
+
+  color: ${({ disabled }) => (disabled ? 'white' : 'rgb(21, 82, 139)')};
   font-size: 48px;
-  border: none;
+
+  padding: 12px 0 0;
+  border: 12px solid ${({ disabled }) => (disabled ? '#fff' : 'rgb(21, 82, 139)')};
   border-radius: 50%;
+  margin: 32px;
+
   width: 200px;
   height: 200px;
-  margin: 32px;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.2);
-  cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
+  /* box-shadow: 0 4px 24px rgba(122, 170, 216, 0.35); */
+  box-shadow: 0 0 18px rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 24px 24px rgba(255, 255, 255, 0.2);
   transition: background 0.2s;
 `;
 
@@ -130,17 +171,20 @@ function BuzzerScreen() {
   if (!name) {
     return (
       <CenteredContainer>
-        <h2>Enter your name to join</h2>
-        <form onSubmit={handleNameSubmit}>
-          <NameInput
-            type="text"
-            value={inputName}
-            onChange={e => setInputName(e.target.value)}
-            placeholder="Your name"
-            autoFocus
-          />
-          <JoinButton type="submit">Join</JoinButton>
-        </form>
+        <Header src="/header.svg" alt="Logo" />
+        <ContentContainer>
+          <h2>Enter your name to join</h2>
+          <form onSubmit={handleNameSubmit}>
+            <NameInput
+              type="text"
+              value={inputName}
+              onChange={e => setInputName(e.target.value)}
+              placeholder="Your name"
+              autoFocus
+            />
+            <JoinButton type="submit">Join</JoinButton>
+          </form>
+        </ContentContainer>
       </CenteredContainer>
     );
   }
@@ -159,16 +203,19 @@ function BuzzerScreen() {
 
   return (
     <CenteredContainer>
-      <NameContainer>
-        <h2>Welcome, {name}!</h2>
-        <ChangeNameButton onClick={handleChangeName}>Change Name</ChangeNameButton>
-      </NameContainer>
-      <BuzzButton onClick={handleBuzz} disabled={hasBuzzed}>
-        {hasBuzzed ? 'Buzzed!' : 'BUZZ'}
-      </BuzzButton>
-      <PositionText>
-          {hasBuzzed ? `You are #${position} in the queue` : 'Buzz to join the queue'}
-      </PositionText>
+      <Header src="/header.svg" alt="Logo" />
+      <ContentContainer>
+        <NameContainer>
+          <h2>Ahoy, {name}!</h2>
+          <ChangeNameButton onClick={handleChangeName}>Change Name</ChangeNameButton>
+        </NameContainer>
+        <BuzzButton onClick={handleBuzz} disabled={hasBuzzed}>
+          {hasBuzzed ? 'Buzzed!' : 'BUZZ'}
+        </BuzzButton>
+        <PositionText>
+            {hasBuzzed ? `You are #${position} in the queue` : 'Buzz to join the queue'}
+        </PositionText>
+      </ContentContainer>
     </CenteredContainer>
   );
 }
