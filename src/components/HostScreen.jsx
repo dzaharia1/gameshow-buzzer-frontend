@@ -66,6 +66,24 @@ const BuzzDiff = styled.span`
   font-size: 16px;
 `;
 
+const HardResetButton = styled.button`
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  width: 24px;
+  height: 24px;
+
+  border: none;
+  border-radius: 6px;
+
+  background: #dc3545;
+  color: white;
+  box-shadow: 0 2px 8px rgba(220,53,69,0.3);
+  cursor: pointer;
+
+  z-index: 10;
+`;
+
 const ResetButton = styled.button`
   margin-top: 24px;
   background: #ff6f00;
@@ -73,7 +91,6 @@ const ResetButton = styled.button`
   font-size: 28px;
   border: none;
   border-radius: 8px;
-  padding: 18px 48px;
   box-shadow: 0 2px 12px rgba(255,111,0,0.15);
   cursor: pointer;
   width: 100%;
@@ -110,6 +127,12 @@ function HostScreen() {
     }
   };
 
+  const handleHardReset = () => {
+    if (ws.current && window.confirm('Are you sure you want to hard reset? This will kick all players out.')) {
+      ws.current.send(JSON.stringify({ type: 'hardReset' }));
+    }
+  };
+
   // Order players: buzzed first (by buzzOrder), then the rest
   const buzzedPlayers = buzzOrder.map((entry) => {
     const player = players.find(p => p.name === entry.name);
@@ -120,6 +143,7 @@ function HostScreen() {
 
   return (
     <Container>
+      <HardResetButton onClick={handleHardReset} />
       <h2>Go for it, Aaron!</h2>
       <PlayerListWrapper>
         {orderedPlayers.length === 0 ? (

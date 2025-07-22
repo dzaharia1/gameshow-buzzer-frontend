@@ -128,6 +128,17 @@ function BuzzerScreen() {
         setBuzzOrder(data.buzzOrder);
         setHasBuzzed(data.buzzOrder.some(entry => entry.name === name));
       }
+      if (data.type === 'hardReset') {
+        // Kick player back to name screen
+        setName('');
+        setInputName('');
+        localStorage.removeItem('buzzerName');
+        setHasBuzzed(false);
+        setBuzzOrder([]);
+        // Reset document title
+        const baseTitle = document.title.split('-')[0].trim();
+        document.title = baseTitle;
+      }
     };
     return () => ws.current && ws.current.close();
   }, [name]);
