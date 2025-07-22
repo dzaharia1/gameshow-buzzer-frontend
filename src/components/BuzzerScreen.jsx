@@ -10,6 +10,7 @@ const CenteredContainer = styled.div`
   justify-content: space-around;
   height: 100vh;
   width: 100vw;
+  padding: 10vh 0;
 `;
 
 const NameContainer = styled.div`
