@@ -7,15 +7,15 @@ const CenteredContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100vh;
+  height: 100dvh;
   width: 100vw;
-  padding: 5vh 0 15vh 0;
+  padding-bottom: 25dvh;
   gap: 5%;
 
   h2 {
     width: 80%;
     font-size: 24px;
-    text-shadow: 0 0 12px rgba(255, 255, 255, 0.5);
+    text-shadow: 0 0 12px rgba(0, 42, 69, 0.5);
     margin-bottom: 12px;
     text-align: center;
   }
@@ -29,6 +29,7 @@ const CenteredContainer = styled.div`
 
 const Header = styled.img`
   width: 100%;
+  max-width: 600px;
   padding: 0 12px;
   object-fit: contain;
   margin-bottom: 12px;
