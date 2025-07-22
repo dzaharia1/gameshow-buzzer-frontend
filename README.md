@@ -1,12 +1,42 @@
-# React + Vite
+# Gameshow Buzzer Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is the frontend for the Gameshow Buzzer app. It provides two screens:
 
-Currently, two official plugins are available:
+- **Buzzer Screen**: For players to join the game, enter their name, and buzz in when they know the answer.
+- **Host Screen**: For the host to see the list and order of players who buzzed, and to reset the buzzers for the next question.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Getting Started
 
-## Expanding the ESLint configuration
+### 1. Install dependencies
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```
+npm install
+```
+
+### 2. Set the backend WebSocket URL (optional)
+
+By default, the frontend connects to `ws://localhost:8080` for the backend WebSocket server. To use a different backend URL, create a `.env` file in this directory and add:
+
+```
+VITE_BACKEND_URL=ws://your-backend-url:8080
+```
+
+### 3. Run the frontend app
+
+```
+npm run dev
+```
+
+Open your browser to the URL shown in the terminal (usually http://localhost:5173).
+
+- Players should visit `/buzzer` (default route)
+- The host should visit `/host`
+
+## Project Structure
+
+- `src/components/BuzzerScreen.jsx` — Player buzzer interface
+- `src/components/HostScreen.jsx` — Host control interface
+
+## Notes
+- This app is designed for mobile-first use.
+- Make sure the backend WebSocket server is running before starting the frontend.
