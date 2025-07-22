@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const WS_URL = import.meta.env.VITE_BACKEND_URL || 'ws://localhost:8080';
 
 const Container = styled.div`
-  max-width: 400px;
+  width: 100vw;
   margin: 0 auto;
   padding: 24px;
   min-height: 100vh;
@@ -44,7 +44,8 @@ const PlayerItem = styled.li`
 `;
 
 const PlayerName = styled.span`
-  flex: 1;
+  color: #333;
+  flex: 1; 
 `;
 
 const BuzzOrder = styled.span`

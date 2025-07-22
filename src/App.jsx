@@ -16,6 +16,15 @@ const GlobalStyle = createGlobalStyle`
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    width: 100%;
+    /* min-height: 100vh; */
+    height: 100dvh;
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+  *, *::before, *::after {
+    box-sizing: border-box;
   }
   a {
     font-weight: 500;
@@ -31,6 +40,11 @@ const GlobalStyle = createGlobalStyle`
     place-items: center;
     min-width: 320px;
     min-height: 100vh;
+    width: 100vw;
+    height: 100dvh;
+    padding: 0;
+    border: 0;
+    margin: 0;
   }
   h1 {
     font-size: 3.2em;
@@ -64,6 +78,7 @@ const GlobalStyle = createGlobalStyle`
     }
     button {
       background-color: #f9f9f9;
+      color: #213547;
     }
   }
 `;

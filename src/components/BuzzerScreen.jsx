@@ -7,8 +7,15 @@ const CenteredContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
   height: 100vh;
+  width: 100vw;
+`;
+
+const NameContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const NameInput = styled.input`
@@ -37,6 +44,10 @@ const ChangeNameButton = styled.button`
 `;
 
 const BuzzButton = styled.button`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   background: ${({ disabled }) => (disabled ? '#aaa' : 'red')};
   color: white;
   font-size: 48px;
@@ -147,16 +158,16 @@ function BuzzerScreen() {
 
   return (
     <CenteredContainer>
-      <h2>Welcome, {name}!</h2>
-      <ChangeNameButton onClick={handleChangeName}>Change Name</ChangeNameButton>
+      <NameContainer>
+        <h2>Welcome, {name}!</h2>
+        <ChangeNameButton onClick={handleChangeName}>Change Name</ChangeNameButton>
+      </NameContainer>
       <BuzzButton onClick={handleBuzz} disabled={hasBuzzed}>
         {hasBuzzed ? 'Buzzed!' : 'BUZZ'}
       </BuzzButton>
-      {hasBuzzed && (
-        <PositionText>
-          You are #{position} in the queue
-        </PositionText>
-      )}
+      <PositionText>
+          {hasBuzzed ? `You are #${position} in the queue` : 'Buzz to join the queue'}
+      </PositionText>
     </CenteredContainer>
   );
 }
