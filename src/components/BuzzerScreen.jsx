@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
-const WS_URL = import.meta.env.VITE_BACKEND_URL || 'ws://localhost:8080';
+const WS_URL = import.meta.env.VITE_BACKEND_URL || 'ws://localhost:9090';
 
 const CenteredContainer = styled.div`
   display: flex;
