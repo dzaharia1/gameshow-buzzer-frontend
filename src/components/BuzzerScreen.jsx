@@ -225,7 +225,6 @@ function BuzzerScreen() {
     localStorage.removeItem('buzzerName');
     setHasBuzzed(false);
     setBuzzOrder([]);
-    // Optionally, notify server of leaving (not implemented in backend)
   };
 
   return (
