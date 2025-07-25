@@ -114,7 +114,6 @@ const BuzzButton = styled.button`
 
   width: 200px;
   height: 200px;
-  /* box-shadow: 0 4px 24px rgba(122, 170, 216, 0.35); */
   box-shadow: 0 0 18px rgba(255, 255, 255, 0.1);
   box-shadow: 0 0 24px 24px rgba(255, 255, 255, 0.2);
   transition: background 0.2s;
